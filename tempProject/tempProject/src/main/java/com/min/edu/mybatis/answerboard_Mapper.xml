@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.application.exam">
+<!-- 전체글 조회 -->
+	<select id="selectAllBoard" resultType="ADto">
+		SELECT SEQ, ID, TITLE,
+		CONTENT, REFER, STEP,
+		DEPTH, READCOUNT, DELFLAG,
+		REGDATE
+		FROM ANSWERBOARD
+		ORDER BY REFER DESC, STEP ASC
+	</select>
+
+	<!-- 상세글 조회 -->
+	<select id="selectDetailBoard" parameterType="java.lang.String"
+		resultType="ADto">
+		SELECT SEQ, ID,TITLE, CONTENT,REGDATE, READCOUNT
+		FROM ANSWERBOARD WHERE SEQ =#{seq}
+	</select>
+
+	<!-- 답글입력 replyBoardUp -->
+	<update id="replyBoardUp" parameterType="ADto">
+		UPDATE ANSWERBOARD SET STEP = STEP+1
+		WHERE REFER = (SELECT REFER FROM ANSWERBOARD WHERE SEQ = #{seq})
+		AND STEP > (SELECT STEP FROM ANSWERBOARD WHERE SEQ=#{seq})
+	</update>
+	
+	<!-- 답글입력 replyBoardIn -->
+	<insert id="replyBoardIn" parameterType="ADto">
+		INSERT INTO
+		ANSWERBOARD(SEQ, ID, TITLE,
+		CONTENT, REFER, STEP,
+		DEPTH, READCOUNT, DELFLAG,
+		REGDATE)
+		VALUES(ANSWERBOARD_SEQ.NEXTVAL, #{id}, #{title},
+		#{content}, (SELECT REFER FROM ANSWERBOARD WHERE SEQ=#{seq}),
+		(SELECT STEP+1 FROM ANSWERBOARD WHERE SEQ=#{seq}),
+		(SELECT DEPTH +1 FROM ANSWERBOARD WHERE SEQ=#{seq}),
+		0, 'N', SYSDATE)
+		<selectKey keyProperty="seq" resultType="java.lang.Integer"
+			order="AFTER">
+			SELECT ANSWERBOARD_SEQ.CURRVAL SEQ FROM DUAL
+		</selectKey>
+	</insert>
+
+	<!-- 글수정 -->
+	<update id="modifyBoard" parameterType="ADto">
+		UPDATE ANSWERBOARD SET TITLE=#{title} , CONTENT=#{content}, REGDATE=SYSDATE
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 글입력 Root글 -->
+	<insert id="inserBoard" parameterType="ADto">
+		INSERT INTO
+		ANSWERBOARD(SEQ, ID, TITLE,
+		CONTENT, REFER, STEP,
+		DEPTH, READCOUNT, DELFLAG,
+		REGDATE)
+		VALUES(ANSWERBOARD_SEQ.NEXTVAL, #{id}, #{title},
+		#{content}, (SELECT NVL(MAX(REFER),0)+1 FROM ANSWERBOARD) , 0, 0,
+		0, 'N',SYSDATE)
+	</insert>
+
+	<!-- 진짜 삭제 -->
+	<delete id="deleteBoardReal" parameterType="java.lang.String">
+		DELETE FROM ANSWERBOARD WHERE SEQ=#{seq}
+	</delete>
+
+	<!-- 다중삭제 Map<String,String[]> // map.put("seq_",new String[]{}) -->
+	<delete id="multiDelete" parameterType="java.util.Map">
+		DELETE FROM ANSWERBOARD WHERE SEQ IN
+		<foreach collection="seq_" item="seq" open="(" separator=","
+			close=")">
+			#{seq}
+		</foreach>
+	</delete>
+	
+	
+	<!-- 페이징 관련 SQL 문 -->
+	
+	<select id="getListCount" resultType="java.lang.Integer">
+			SELECT COUNT(*)		FROM ANSWERBOARD
+	</select>
+	
+	<select id="getPageList" parameterType="java.util.Map"
+	resultType="ADto">
+		SELECT SEQ, ID, TITLE, CONTENT, REGDATE, DELFLAG, DEPTH
+			FROM (SELECT SEQ, ID, TITLE, CONTENT, REGDATE, DELFLAG, DEPTH, ROWNUM RN
+				FROM (SELECT SEQ, ID, TITLE, CONTENT, REGDATE, DELFLAG, DEPTH
+						FROM ANSWERBOARD ORDER BY SEQ DESC))
+			WHERE RN BETWEEN #{first} AND #{last}
+	</select>
+	
+	
+	
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

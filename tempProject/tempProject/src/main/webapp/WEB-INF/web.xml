@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <welcome-file-list>
+  	<welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>BoardList</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.BoardListCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BoardList</servlet-name>
+  	<url-pattern>/boardlist.do</url-pattern>
+  </servlet-mapping>
+  
+ 
+  <servlet>
+  	<servlet-name>MultiDel</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.MultiDelCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MultiDel</servlet-name>
+  	<url-pattern> /multidel.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>WriteForm</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.WriteFormCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>WriteForm</servlet-name>
+  	<url-pattern>/writeform.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>Write</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.WriteCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Write</servlet-name>
+  	<url-pattern>/write.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DetailBoard</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.DetailBoardCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DetailBoard</servlet-name>
+  	<url-pattern>/detailboard.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ModifyBoardForm</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.ModifyBoardFormCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ModifyBoardForm</servlet-name>
+  	<url-pattern>/modifyform.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DeleteBoard</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.DeleteCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DeleteBoard</servlet-name>
+  	<url-pattern>/delete.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReplyBoardForm</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.ReplyBoardFormCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReplyBoardForm</servlet-name>
+  	<url-pattern>/replyform.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReplyBoard</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.ReplyBoardCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReplyBoard</servlet-name>
+  	<url-pattern>/reply.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ModifyBoard</servlet-name>
+  	<servlet-class>com.min.edu.ctrl.ModifyBoardCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ModifyBoard</servlet-name>
+  	<url-pattern>/modify.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+</web-app>
